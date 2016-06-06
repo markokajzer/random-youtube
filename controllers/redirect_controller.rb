@@ -25,6 +25,9 @@ class RedirectController < ApplicationController
       next_page = ''
 
       while not count > max_results
+        #
+        # TODO Fix raising 403 if privat playlist
+        #
         response = JSON.parse(open("#{REQUEST_BASE}&playlistId=#{playlist}&pageToken=#{next_page}").read)
         response['items'].each do |video|
           videos << video['contentDetails']['videoId']
