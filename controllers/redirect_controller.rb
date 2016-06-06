@@ -1,7 +1,7 @@
 class RedirectController < ApplicationController
 
   get '/' do
-    video_ids = []
+    videos = []
     max_results = count = 0
     next_page = ''
 
@@ -10,7 +10,7 @@ class RedirectController < ApplicationController
     while not count > max_results
       response = JSON.parse(open("#{REQUEST_BASE}&playlistId=#{playlist}&pageToken=#{next_page}").read)
       response['items'].each do |video|
-        video_ids << video['contentDetails']['videoId']
+        videos << video['contentDetails']['videoId']
       end
 
       count += response['pageInfo']['resultsPerPage']
@@ -18,7 +18,7 @@ class RedirectController < ApplicationController
       next_page = response['nextPageToken']
     end
 
-    redirect to("#{YOUTUBE_BASE}#{video_ids.sample}&list=#{playlist}")
+    redirect to("#{YOUTUBE_BASE}#{videos.sample}&list=#{playlist}")
   end
 
 end
