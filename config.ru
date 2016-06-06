@@ -1,6 +1,6 @@
 require 'sinatra'
 
-require 'active_support/core_ext/time'
+require 'active_support/time'
 require 'json'
 require 'open-uri'
 
