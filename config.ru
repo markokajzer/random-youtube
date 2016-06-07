@@ -11,7 +11,7 @@ CONFIG =
   YAML.load(File.read('./config/config.yml'))[ENV['RACK_ENV'] || 'development'].symbolize_keys
 CONFIG[:api_key] =
   ENV['YOUTUBE_API_KEY'] ||
-  YAML.load(File.read('./config/secrets.yml'))[ENV['RACK_ENV'] || 'development'].symbolize_keys
+  YAML.load(File.read('./config/secrets.yml'))[ENV['RACK_ENV'] || 'development']['api_key']
 CONFIG[:request_base] =
   "#{CONFIG[:api_base]}?key=#{CONFIG[:api_key]}&part=contentDetails&maxResults=50"
 
