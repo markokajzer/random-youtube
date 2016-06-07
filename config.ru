@@ -1,7 +1,8 @@
 require 'sinatra'
 
-require 'active_support/time'
 require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/numeric/time'
+
 require 'json'
 require 'open-uri'
 require 'yaml'

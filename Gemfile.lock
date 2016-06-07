@@ -47,7 +47,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  json
   racksh
   sinatra
   sinatra-contrib (>= 1.4.7)
