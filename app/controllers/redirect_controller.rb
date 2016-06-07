@@ -16,10 +16,11 @@ class RedirectController < ApplicationController
   helpers do
     def save_video_ids(playlist, cache)
       videos = []
-      max_results = count = 0
+      count = 0
+      max_results = nil
       next_page = ''
 
-      while not count > max_results
+      while max_results.nil? || count < max_results
         #
         # TODO Fix raising 403 if privat playlist
         #
@@ -30,7 +31,7 @@ class RedirectController < ApplicationController
         end
 
         count += response['pageInfo']['resultsPerPage']
-        max_results = response['pageInfo']['totalResults'] if max_results.zero?
+        max_results = response['pageInfo']['totalResults'] if max_results.nil?
         next_page = response['nextPageToken']
       end
 
