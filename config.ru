@@ -7,6 +7,7 @@ require 'json'
 require 'open-uri'
 require 'yaml'
 
+# TODO how to handle secrets (api_key) with heroku?
 CONFIG =
   YAML.load(File.read('./config/config.yml'))[ENV['RACK_ENV'] || 'development'].symbolize_keys
 CONFIG[:api_key] =
