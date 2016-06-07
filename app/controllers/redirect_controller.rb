@@ -4,12 +4,8 @@ class RedirectController < ApplicationController
   get '/' do
     playlist = params['playlist'] || CONFIG[:playlist_id]
 
-    videos = if cache[playlist].present?
-      if cache[playlist]['cache_until'] < Time.now
-        save_video_ids(playlist, cache)
-      else
-        cache[playlist]['videos']
-      end
+    videos = if cache[playlist].present? && cache[playlist]['cache_until'] > Time.now
+      cache[playlist]['videos']
     else
       save_video_ids(playlist, cache)
     end
