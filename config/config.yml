@@ -1,0 +1,8 @@
+development: &development
+  playlist_id: 'PL_H04AvN5HJNrZSL_0M6lIjmLAvjOXs7u'
+  api_base: 'https://www.googleapis.com/youtube/v3/playlistItems'
+  youtube_base: 'https://www.youtube.com/watch?v='
+
+production:
+  <<: *development
+

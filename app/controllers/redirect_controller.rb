@@ -1,5 +1,4 @@
 class RedirectController < ApplicationController
-
   cache = {}
 
   get '/' do
@@ -44,5 +43,4 @@ class RedirectController < ApplicationController
       cache[playlist]['videos'] = videos
     end
   end
-
 end
