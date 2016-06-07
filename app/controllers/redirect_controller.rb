@@ -39,7 +39,7 @@ class RedirectController < ApplicationController
       end
 
       cache[playlist] = {}
-      cache[playlist]['cache_until'] = Time.now + 24.hours
+      cache[playlist]['cache_until'] = 24.hours.from_now
       cache[playlist]['videos'] = videos
     end
   end
