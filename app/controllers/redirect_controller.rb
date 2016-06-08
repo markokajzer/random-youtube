@@ -42,8 +42,4 @@ class RedirectController < ApplicationController
       cache[playlist]['videos'] = videos
     end
   end
-
-  def handle_errors(error)
-    halt({ code: error.io.status[0], message: error.io.status[1] }.to_json)
-  end
 end
