@@ -17,6 +17,6 @@ ENV['request_base'] =
 
 # TODO warum failt das manchmal auf heroku only? reihenfolge!
 #      warum geht dann autoload auch nicht (siehe tamyca_core)
-Dir.glob('./app/controllers/*.rb').each { |file| require file }
+Dir.glob('./app/controllers/*.rb').sort.each { |file| require file }
 
 map('/') { run RedirectController }
