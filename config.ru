@@ -7,14 +7,13 @@ require 'json'
 require 'open-uri'
 require 'yaml'
 
-# TODO how to handle secrets (api_key) with heroku?
-CONFIG =
-  YAML.load(File.read('./config/config.yml'))[ENV['RACK_ENV'] || 'development'].symbolize_keys
-CONFIG[:api_key] =
-  ENV['YOUTUBE_API_KEY'] ||
+YAML.load(File.read('./config/config.yml'))[ENV['RACK_ENV'] || 'development'].each do |key, value|
+  ENV.store(key, value)
+end
+ENV['api_key'] ||=
   YAML.load(File.read('./config/secrets.yml'))[ENV['RACK_ENV'] || 'development']['api_key']
-CONFIG[:request_base] =
-  "#{CONFIG[:api_base]}?key=#{CONFIG[:api_key]}&part=contentDetails&maxResults=50"
+ENV['request_base'] =
+  "#{ENV['api_base']}?key=#{ENV['api_key']}&part=contentDetails&maxResults=50"
 
 Dir.glob('./app/controllers/*.rb').each { |file| require file }
 

@@ -2,7 +2,7 @@ class RedirectController < ApplicationController
   cache = {}
 
   get '/' do
-    playlist = params['playlist'] || CONFIG[:playlist_id]
+    playlist = params['playlist'] || ENV['playlist_id']
 
     videos = if cache[playlist].present? && cache[playlist]['cache_until'] > Time.now
       cache[playlist]['videos']
@@ -10,7 +10,7 @@ class RedirectController < ApplicationController
       save_video_ids(playlist, cache)
     end
 
-    redirect to("#{CONFIG[:youtube_base]}#{videos.sample}&list=#{playlist}")
+    redirect to("#{ENV['youtube_base']}#{videos.sample}&list=#{playlist}")
   end
 
   helpers do
@@ -24,7 +24,7 @@ class RedirectController < ApplicationController
         #
         # TODO Fix raising 403 if privat playlist
         #
-        request_url = "#{CONFIG[:request_base]}&playlistId=#{playlist}&pageToken=#{next_page}"
+        request_url = "#{ENV['request_base']}&playlistId=#{playlist}&pageToken=#{next_page}"
         response = JSON.parse(open(request_url).read)
         response['items'].each do |video|
           videos << video['contentDetails']['videoId']
