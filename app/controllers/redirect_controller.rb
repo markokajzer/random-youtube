@@ -21,11 +21,13 @@ class RedirectController < ApplicationController
       next_page = ''
 
       while max_results.nil? || count < max_results
-        #
-        # TODO Fix raising 403 if privat playlist
-        #
         request_url = "#{ENV['request_base']}&playlistId=#{playlist}&pageToken=#{next_page}"
-        response = JSON.parse(open(request_url).read)
+        begin
+          response = JSON.parse(io = open(request_url).read)
+        rescue OpenURI::HTTPError => e
+          handle_errors(e)
+        end
+
         response['items'].each do |video|
           videos << video['contentDetails']['videoId']
         end
@@ -39,5 +41,9 @@ class RedirectController < ApplicationController
       cache[playlist]['cache_until'] = 24.hours.from_now
       cache[playlist]['videos'] = videos
     end
+  end
+
+  def handle_errors(error)
+    halt({ code: error.io.status[0], message: error.io.status[1] }.to_json)
   end
 end
