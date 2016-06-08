@@ -23,7 +23,7 @@ class RedirectController < ApplicationController
       while max_results.nil? || count < max_results
         request_url = "#{ENV['request_base']}&playlistId=#{playlist}&pageToken=#{next_page}"
         begin
-          response = JSON.parse(io = open(request_url).read)
+          response = JSON.parse(open(request_url).read)
         rescue OpenURI::HTTPError => e
           handle_errors(e)
         end
