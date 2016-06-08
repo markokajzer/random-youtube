@@ -15,6 +15,8 @@ ENV['api_key'] ||=
 ENV['request_base'] =
   "#{ENV['api_base']}?key=#{ENV['api_key']}&part=contentDetails&maxResults=50"
 
+# TODO warum failt das manchmal auf heroku only? reihenfolge!
+#      warum geht dann autoload auch nicht (siehe tamyca_core)
 Dir.glob('./app/controllers/*.rb').each { |file| require file }
 
 map('/') { run RedirectController }
