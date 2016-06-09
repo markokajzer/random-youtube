@@ -8,3 +8,8 @@ group :development do
   gem 'thin'
   gem 'racksh', require: false
 end
+
+group :production do
+  # TODO replace with puma
+  gem 'thin'
+end
